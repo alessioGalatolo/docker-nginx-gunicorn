@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+    gunicorn:
+        build: ./gunicorn
+        expose:
+            - 5000
+        environment: 
+            #change these
+            MODULE_NAME: "main" #the module name of the wsgi application
+            VARIABLE_NAME: "app" #the name of the application
+
+    nginx:
+        build: ./nginx
+        ports:
+            - 80:80
+            - 443:443
+        depends_on:
+            - gunicorn
+
+
+
