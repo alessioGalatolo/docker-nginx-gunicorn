@@ -2,7 +2,7 @@
 
 set -e
 
-if [ -n '${domain}'] ; then
+if [ -n "${domain}" ] ; then
     domains="$domain"
 fi
 
@@ -31,7 +31,9 @@ eval "echo \"${template_str}\"" > /etc/nginx/conf.d/nginx.conf
 
 #set gunicorn conf if available
 if [ -n "$gunicorn_config_file" ] ; then
-    cat /gunicorn.conf.py $gunicorn_config_file > /gunicorn.conf.py
+    cat /default_gunicorn_config_file.py "$gunicorn_config_file" > /gunicorn.conf.py
+else
+    cat /default_gunicorn_config_file.py > gunicorn.conf.py
 fi
 
 exec supervisord -c /supervisord.conf
