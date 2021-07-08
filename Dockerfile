@@ -16,8 +16,6 @@ RUN chmod +x /start.sh
 
 RUN rm /etc/nginx/conf.d/default.conf
 
-# COPY ./nginx.conf /etc/nginx/conf.d
-
 #HTTP/S ports
 EXPOSE 80 443
 

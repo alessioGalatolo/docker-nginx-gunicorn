@@ -2,36 +2,36 @@
 
 set -e
 
-if [ -n "${domain}" ] ; then
-    domains="$domain"
+if [ -n "${DOMAIN}" ] ; then
+    DOMAINS="$DOMAIN"
 fi
 
-if [ -z "${domains}" ] ; then
-    domains="_" #localhost ? the ip??
+if [ -z "${DOMAINS}" ] ; then
+    DOMAINS="_"
     echo "Didn't find any domains, won't add them to nginx configuration"
 else
-    wwwdomains=""
-    for domain in $domains; do
-        wwwdomains="${wwwdomains} www.${domain}"
+    echo "Found these domains: ${DOMAINS}"
+    WWWW_DOMAINS=""
+    for domain in $DOMAINS; do
+        WWWW_DOMAINS="${WWWW_DOMAINS} www.${domain}"
     done
-    echo "$wwwdomains"
 fi
 
 #set tls if available
-if [ -n "$use_tls" ] && [ "$use_tls" = "true" ] ; then
+if [ -n "$USE_TLS" ] && [ "$USE_TLS" = "true" ] ; then
     echo "Using tls"
-    template_str=$(cat "nginx_ssl_template.conf")
+    NGINX_TEMPLATE=$(cat "nginx_ssl_template.conf")
 else
     echo "Not using tls"
-    template_str=$(cat "nginx_template.conf")
+    NGINX_TEMPLATE=$(cat "nginx_template.conf")
 fi
 
 #set the nginx confog
-eval "echo \"${template_str}\"" > /etc/nginx/conf.d/nginx.conf
+eval "echo \"${NGINX_TEMPLATE}\"" > /etc/nginx/conf.d/nginx.conf
 
 #set gunicorn conf if available
-if [ -n "$gunicorn_config_file" ] ; then
-    cat /default_gunicorn_config_file.py "$gunicorn_config_file" > /gunicorn.conf.py
+if [ -n "$GUNICORN_CONFIG_FILE" ] ; then
+    cat /default_gunicorn_config_file.py "$GUNICORN_CONFIG_FILE" > /gunicorn.conf.py
 else
     cat /default_gunicorn_config_file.py > gunicorn.conf.py
 fi
