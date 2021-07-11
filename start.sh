@@ -11,9 +11,9 @@ if [ -z "${DOMAINS}" ] ; then
     echo "Didn't find any domains, won't add them to nginx configuration"
 else
     echo "Found these domains: ${DOMAINS}"
-    WWWW_DOMAINS=""
+    WWW_DOMAINS=""
     for domain in $DOMAINS; do
-        WWWW_DOMAINS="${WWWW_DOMAINS} www.${domain}"
+        WWW_DOMAINS="${WWW_DOMAINS} www.${domain}"
     done
 fi
 
