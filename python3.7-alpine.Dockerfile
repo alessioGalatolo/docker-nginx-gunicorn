@@ -1,4 +1,4 @@
-FROM python:3.7-alpine3.8
+FROM python:3.7-alpine
 
 LABEL maintainer="Alessio Galatolo <galatoloalessio@gmail.com>"
 
@@ -10,11 +10,7 @@ RUN chmod +x /install_nginx.sh
 
 RUN /install_nginx.sh
 
-COPY start.sh /start.sh
-
 RUN chmod +x /start.sh
-
-RUN rm /etc/nginx/conf.d/default.conf
 
 #HTTP/S ports
 EXPOSE 80 443

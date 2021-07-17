@@ -26,8 +26,9 @@ else
     NGINX_TEMPLATE=$(cat "nginx_template.conf")
 fi
 
-#set the nginx confog
-eval "echo \"${NGINX_TEMPLATE}\"" > /etc/nginx/conf.d/nginx.conf
+#set the nginx config
+rm -f /etc/nginx/conf.d
+eval "echo \"${NGINX_TEMPLATE}\"" > /etc/nginx/nginx.conf
 
 #set gunicorn conf if available
 if [ -n "$GUNICORN_CONFIG_FILE" ] ; then

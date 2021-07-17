@@ -1,11 +1,17 @@
 # Docker-nginx-gunicorn
 This is a docker image to run a Python web application in a server with gunicorn + nginx + support for tls connections.
-This will also support automatic certificate retrival through letsencrypt
+This will also support automatic certificate retrival through letsencrypt.
+
+These are the available tags:
+* [`python3.9-alpine`, `latest`](https://github.com/alessioGalatolo/docker-nginx-gunicorn/blob/master/python3.9-alpine.Dockerfile)
+* [`python3.8-alpine`](https://github.com/alessioGalatolo/docker-nginx-gunicorn/blob/master/python3.8-alpine.Dockerfile)
+* [`python3.7-alpine`](https://github.com/alessioGalatolo/docker-nginx-gunicorn/blob/master/python3.7-alpine.Dockerfile)
+* [`python3.6-alpine`](https://github.com/alessioGalatolo/docker-nginx-gunicorn/blob/master/python3.6-alpine.Dockerfile)
 
 # How to use
 You can use this image by just including in your Dockerfile:
 ```Dockerfile
-FROM galatolo/nginx-gunicorn:latest
+FROM galatolo/nginx-gunicorn:<tag> # Swap <tag> with one from the ones above
 
 # The rest of the Dockerfile
 ```
@@ -59,5 +65,9 @@ Your configuration will override the deafult ones.
 **Note:** Changing the settings for `host`, `port` or `bind` will BREAK the image.
 # Todo:
 Add automatic certificate generation through certbot
+
 Better documentation
-More tag options
+
+Implement debian tag options
+
+Implement tests
