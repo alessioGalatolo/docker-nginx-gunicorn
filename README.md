@@ -18,7 +18,7 @@ FROM galatolo/nginx-gunicorn:<tag> # Swap <tag> with one from the ones above
 Then you can run the build and run the container as follows:
 ```sh
 docker build -t myserver
-docker run -p 80:80 443:443 myserver
+docker run -p 80:80 -p 443:443 myserver
 ```
 You can define environmental variables in order to customize the behaviour of the image.
 For example, if you want to use the application with your custom domain, you would add to your Dockerfile:
