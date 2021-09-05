@@ -7,6 +7,7 @@ These are the available tags:
 * [`python3.8-alpine`](https://github.com/alessioGalatolo/docker-nginx-gunicorn/blob/master/python3.8-alpine.Dockerfile)
 * [`python3.7-alpine`](https://github.com/alessioGalatolo/docker-nginx-gunicorn/blob/master/python3.7-alpine.Dockerfile)
 * [`python3.6-alpine`](https://github.com/alessioGalatolo/docker-nginx-gunicorn/blob/master/python3.6-alpine.Dockerfile)
+
 **Note**: There are [tags for each build date](https://hub.docker.com/r/galatolo/gunicorn-nginx/tags). If you need to "pin" the Docker image version you use (strongly recommended), you can select one of those tags. E.g. `galatolo/gunicorn-nginx:python3.7-alpine-05-09-2021`.
 # How to use
 You can use this image by just including in your Dockerfile:
