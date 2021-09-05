@@ -7,7 +7,7 @@ These are the available tags:
 * [`python3.8-alpine`](https://github.com/alessioGalatolo/docker-nginx-gunicorn/blob/master/python3.8-alpine.Dockerfile)
 * [`python3.7-alpine`](https://github.com/alessioGalatolo/docker-nginx-gunicorn/blob/master/python3.7-alpine.Dockerfile)
 * [`python3.6-alpine`](https://github.com/alessioGalatolo/docker-nginx-gunicorn/blob/master/python3.6-alpine.Dockerfile)
-
+**Note**: There are [tags for each build date](https://hub.docker.com/r/galatolo/gunicorn-nginx/tags). If you need to "pin" the Docker image version you use (strongly recommended), you can select one of those tags. E.g. `galatolo/gunicorn-nginx:python3.7-alpine-05-09-2021`.
 # How to use
 You can use this image by just including in your Dockerfile:
 ```Dockerfile
@@ -17,8 +17,8 @@ FROM galatolo/nginx-gunicorn:<tag> # Swap <tag> with one from the ones above
 ```
 Then you can run the build and run the container as follows:
 ```sh
-docker build -t myserver
-docker run -p 80:80 -p 443:443 myserver
+docker build -t myserver .
+docker run -p 80:80 myserver
 ```
 You can define environmental variables in order to customize the behaviour of the image.
 For example, if you want to use the application with your custom domain, you would add to your Dockerfile:
@@ -54,6 +54,21 @@ COPY ./my_certificates/certificate_private.pem /.ssl/private.pem
 ENV USE_TLS="true"
 ENV DOMAIN="mydomain.com"
 ```
+Remember to also bind port 443 if you are using TLS when running the image:
+```sh
+docker run -p 80:80 -p 443:443 myserver
+```
+## Enable DDOS protection
+This image comes with a very simple protection against DDOS attack based on a request limiter.
+In order to enable it add the following to your docker file:
+```Dockerfile
+ENV DDOS_PROTECTION="true"
+```
+You can change the number of requests accepted every second as follows (default is 30 requests/s):
+```Dockerfile
+ENV REQUEST_LIMIT="50"
+```
+You might want to increase this number if users are getting frequent 503 errors.
 ## Use custom gunicorn configuration
 You can change the gunicorn configuration by adding your [configuration file](https://docs.gunicorn.org/en/latest/configure.html#configuration-file) to the container and by defining the environment variable `GUNICORN_CONFIG_FILE` to point to your file:
 ```Dockerfile
@@ -63,6 +78,16 @@ ENV GUNICORN_CONFIG_FILE="/myconfiguration.py"
 ```
 Your configuration will override the deafult ones.
 **Note:** Changing the settings for `host`, `port` or `bind` will BREAK the image.
+## Use custom HTTP/S ports
+In case you want to use different ports from the standard ones 80/443 you can use the following to specify your own:
+```Dockerfile
+ENV HTTP_PORT="81"
+ENV HTTPS_PORT="444"
+```
+Do not forget to also bind those ports when running the image:
+```sh
+docker run -p 81:81 -p 444:444 myserver
+```
 # Todo:
 Add automatic certificate generation through certbot
 
