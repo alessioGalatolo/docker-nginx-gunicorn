@@ -12,7 +12,7 @@ These are the available tags:
 # How to use
 You can use this image by just including in your Dockerfile:
 ```Dockerfile
-FROM galatolo/nginx-gunicorn:<tag> # Swap <tag> with one from the ones above
+FROM galatolo/gunicorn-nginx:<tag> # Swap <tag> with one from the ones above
 
 # The rest of the Dockerfile
 ```
